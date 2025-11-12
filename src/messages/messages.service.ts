@@ -1,27 +1,23 @@
+import { Injectable } from '@nestjs/common';
 import { MessagesRepository } from './messages.repository';
 
+@Injectable()
 export class MessagesService {
-    // top of JS class - create class properties
-    messagesRepository: MessagesRepository;
+    constructor(public messagesRepo: MessagesRepository) {}
 
-    // initialize class properties in constructor method
-    constructor() {
-        // making our own dependencies first 
-        // exclusively to understand dependency injection
-        // will replace this with NestJS's built in dependency injection
-        // this is how we'll build real apps moving forward
-        this.messagesRepository = new MessagesRepository();
-    }
-
+    // injectable is a decorator that marks a class as a NestJS service
+    // NestJS will automatically inject the MessagesRepository into the class
+    // when the class is instantiated
+    // this is a form of inversion of control (IoC)
     findOne(id: string) {
-        return this.messagesRepository.findOne(id);
+        return this.messagesRepo.findOne(id);
     }
 
     findAll() {
-        return this.messagesRepository.findAll();
+        return this.messagesRepo.findAll();
     }
 
     create(content: string) {
-        return this.messagesRepository.create(content);
+        return this.messagesRepo.create(content);
     }
 }

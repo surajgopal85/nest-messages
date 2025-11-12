@@ -1,5 +1,12 @@
+import { Injectable } from '@nestjs/common';
 import { readFile, writeFile } from 'fs/promises';
 
+@Injectable()
+// injectable is a decorator that marks a class as a NestJS repository
+// it allows NestJS to inject dependencies into the class
+// NestJS will automatically inject the readFile and writeFile functions into the class
+// when the class is instantiated
+// this is a form of inversion of control (IoC)
 export class MessagesRepository {
     async findOne(id: string) {
         const contents = await readFile('messages.json', 'utf8');
